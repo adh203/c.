@@ -1,45 +1,72 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<limits.h>
-
-int main() {
-    int RQ[100], i, j, n, TotalHeadMoment = 0, initial, size;
-
-    printf("Enter the number of Requests\n");
-    scanf("%d", &n);
-    
-    printf("Enter the Requests sequence\n");
-    for(i = 0; i < n; i++)
-        scanf("%d", &RQ[i]);
-
-    printf("Enter initial head position\n");
-    scanf("%d", &initial);
-
-    printf("Enter total disk size\n");
-    scanf("%d", &size);
-
-    int visited[100] = {0};
-
-    int minDistance, closestIndex;
-    while(1) {
-        minDistance = INT_MAX;
-        closestIndex = -1;
-        for(i = 0; i < n; i++) {
-            if(abs(RQ[i] - initial) < minDistance && !visited[i]) {
-                minDistance = abs(RQ[i] - initial);
-                closestIndex = i;
-            }
+  GNU nano 4.8                                                                                                                                                                                                    scandisk.c                                                                                                                                                                                                    Modified  
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+        int RQ[100],i,j,n,TotalHeadMoment=0,initial,size,move,index;
+        printf("Enter the no of requests\n");
+        scanf("%d",&n);
+        printf("Enter the requests sequence\n");
+        for(i=0;i<n;i++)
+        scanf("%d",&RQ[i]);
+        printf("Enter initial head position\n");
+        scanf("%d",&initial);
+        printf("Enter the disc size");
+        scanf("%d",&size);
+        printf("Enter the head movement direction for high1 and for low0\n");
+        scanf("%d",&move);
+        for(i=0;i<n;i++)
+        {
+                for(j=0;j<n-i-1;j++)
+                {
+                        if(RQ[j]>RQ[j+1])
+                        {
+                                int temp;
+                                temp=RQ[j];
+                                RQ[j]=RQ[j+1];
+                                RQ[j+1]=temp;
+                        }
+                }
         }
-
-        if(closestIndex == -1)
-            break;
-
-        TotalHeadMoment += minDistance;
-        visited[closestIndex] = 1;
-        initial = RQ[closestIndex];
-    }
-
-    printf("Total head movement is %d\n", TotalHeadMoment);
-
-    return 0;
+        for(i=0;i<n;i++)
+        {
+                if(initial<RQ[i])
+                {
+                        index=i;
+                        break;
+                }
+        }
+        if(move==1)
+        {
+        for(i=index;i<n;i++)
+        {
+                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                initial=RQ[i];
+        }
+        TotalHeadMoment=TotalHeadMoment+abs(size-RQ[i-1]-1);
+        TotalHeadMoment=TotalHeadMoment+abs(size-1-0);
+        initial=0;
+        for(i=0;i<index;i++)
+        {
+                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                initial=RQ[i];
+        }
+        }
+                else
+                {
+                        for(i=index-1;i>=0;i--)
+                        {
+                                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                                initial=RQ[i];
+                        }
+                        TotalHeadMoment=TotalHeadMoment+abs(size-1-0);
+                        initial=size-1;
+                        for(i=n-1;i>=index;i--)
+                        {
+                                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                                initial=RQ[i];
+                        }
+                }
+                printf("Total head movements is %d",TotalHeadMoment);
+                return 0;
 }
