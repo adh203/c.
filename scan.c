@@ -38,22 +38,22 @@ int main()
         }
         if(move==1)
         {
-        for(i=index;i<n;i++)
-        {
-                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
-                initial=RQ[i];
-        }
-        TotalHeadMoment=TotalHeadMoment+abs(size-RQ[i-1]-1);
-        TotalHeadMoment=TotalHeadMoment+abs(size-1-0);
-        initial=0;
-        for(i=0;i<index;i++)
-        {
-                TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
-                initial=RQ[i];
-        }
-        }
-                else
+                for(i=index;i<n;i++)
                 {
+                        TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                        initial=RQ[i];
+                 }
+                  TotalHeadMoment=TotalHeadMoment+abs(size-RQ[i-1]-1);
+                  TotalHeadMoment=TotalHeadMoment+abs(size-1-0);
+                  initial=0;
+                  for(i=0;i<index;i++)
+                  {
+                        TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
+                        initial=RQ[i];
+                  }
+        }
+        else
+        {
                         for(i=index-1;i>=0;i--)
                         {
                                 TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
@@ -66,7 +66,7 @@ int main()
                                 TotalHeadMoment=TotalHeadMoment+abs(RQ[i]-initial);
                                 initial=RQ[i];
                         }
-                }
-                printf("Total head movements is %d",TotalHeadMoment);
-                return 0;
+          }
+          printf("Total head movements is %d",TotalHeadMoment);
+          return 0;
 }
